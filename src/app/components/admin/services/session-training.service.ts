@@ -4,12 +4,13 @@ import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http'
 import { environment } from '../../../environments/environment.development';
 import { ValidationErrorResponse } from '../../users/models/ValidationErrorResponse ';
 import { GetSessionDto } from '../models/session.model';
+import { Router } from '@angular/router';
 
 export interface CreateSessionTrainingDto {
   // Add properties based on your requirements
   trainingId: string;
   sessionId: string;
-  sequenceNumber:number;
+  sequenceNumber: number;
   // Add other properties as needed
 }
 
@@ -36,7 +37,7 @@ export class SessionTrainingService {
   $sessionsTraining = signal<GetSessionDto[]>([]);
   $isLoading = signal<boolean>(false);
   $error = signal<string>('');
-
+  #router = inject(Router);
   // Create a new session training
   createSessionTraining(model: CreateSessionTrainingDto) {
     this.$isLoading.set(true);
@@ -48,6 +49,7 @@ export class SessionTrainingService {
         this.$error.set('');
         // Optionally trigger a refresh of sessions list
         console.log('Session training created successfully:', res);
+        this.#router.navigate(['admin', 'sessionTrainingList']);
       },
       (error: HttpErrorResponse) => {
         this.$isLoading.set(false);

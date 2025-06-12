@@ -29,7 +29,7 @@ export class SessionService {
         this.$loading.set(false);
 
         // Navigate back to sessions list
-        this.#router.navigate(['sessions']);
+        this.#router.navigate(['admin','sessions']);
       },
       (error: HttpErrorResponse) => {
         this.$loading.set(false);
