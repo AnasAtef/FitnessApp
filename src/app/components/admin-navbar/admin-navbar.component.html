@@ -1,0 +1,112 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#" (click)="navigateTo('/admin'); $event.preventDefault()">
+      <i class="fas fa-dumbbell"></i>
+      FitAdmin
+    </a>
+
+    <!-- Mobile toggle button -->
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()" [attr.aria-expanded]="!isNavbarCollapsed"
+      aria-controls="navbarNav" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation links -->
+    <div class="collapse navbar-collapse" [class.show]="!isNavbarCollapsed" id="navbarNav">
+
+      <!-- Main navigation -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="isActiveRoute('/admin')"
+            (click)="navigateTo('/admin'); $event.preventDefault()" href="#">
+            <i class="fas fa-th-large me-2"></i>
+            Dashboard
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="isActiveRoute('/admin') && router.url === '/admin'"
+            (click)="navigateTo('/admin'); $event.preventDefault()" href="#">
+            <i class="fas fa-list me-2"></i>
+            Fitness Categories
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="isActiveRoute('/admin/addFitnessCategory')"
+            (click)="navigateTo('/admin/addFitnessCategory'); $event.preventDefault()" href="#">
+            <i class="fas fa-plus-circle me-2"></i>
+            Add Category
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="isActiveRoute('/admin/trainingList')"
+            (click)="navigateTo('/admin/trainingList'); $event.preventDefault()" href="#">
+            <i class="fas fa-running me-2"></i>
+            Training List
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="isActiveRoute('/admin/addTrainingCategory')"
+            (click)="navigateTo('/admin/addTrainingCategory'); $event.preventDefault()" href="#">
+            <i class="fas fa-plus me-2"></i>
+            Add Training
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="isActiveRoute('/admin/addsessions')"
+            (click)="navigateTo('/admin/addsessions'); $event.preventDefault()" href="#">
+            <i class="fas fa-plus me-2"></i>
+            Add Sessions
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="isActiveRoute('/admin/sessions')"
+            (click)="navigateTo('/admin/sessions'); $event.preventDefault()" href="#">
+            <i class="fas fa-plus me-2"></i>
+            Sessions
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="isActiveRoute('/admin/sessionTrainingList')"
+            (click)="navigateTo('/admin/sessionTrainingList'); $event.preventDefault()" href="#">
+            <i class="fas fa-plus me-2"></i>
+            Training Sessions
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="isActiveRoute('/admin/sessionTrainingAdd')"
+            (click)="navigateTo('/admin/sessionTrainingAdd'); $event.preventDefault()" href="#">
+            <i class="fas fa-plus me-2"></i>
+            Add Training Sessions
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right side navigation -->
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
+            (click)="toggleDropdown($event)" [attr.aria-expanded]="isDropdownOpen">
+            <i class="fas fa-user-shield me-2"></i>
+            Admin
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" [class.show]="isDropdownOpen">
+            <li><a class="dropdown-item" href="#" (click)="$event.preventDefault()">
+              <i class="fas fa-cog me-2"></i>Settings</a></li>
+            <li><a class="dropdown-item" href="#" (click)="$event.preventDefault()">
+              <i class="fas fa-chart-bar me-2"></i>Analytics</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#" (click)="logout(); $event.preventDefault()">
+              <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

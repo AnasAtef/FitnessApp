@@ -1,0 +1,253 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+/* ========================================
+   FITNESS APP COLOR PALETTE
+   ======================================== */
+:root {
+  /* Primary Colors */
+  --primary-green: #4ECDC4;
+  --primary-green-hover: #45B7B8;
+  --primary-green-light: #6DD5DB;
+
+  /* Background Colors */
+  --bg-dark: #1A1A1A;
+  --bg-dark-secondary: #2D2D2D;
+  --bg-overlay: rgba(0, 0, 0, 0.7);
+
+  /* Text Colors */
+  --text-primary: #FFFFFF;
+  --text-secondary: #E0E0E0;
+  --text-muted: #B0B0B0;
+
+  /* Accent Colors */
+  --accent-blue: #007AFF;
+  --accent-gray: #8E8E93;
+
+  /* Component Colors */
+  --button-primary: var(--primary-green);
+  --card-background: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   GLOBAL OVERRIDES
+   ======================================== */
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   EXISTING NAVBAR STYLES (Enhanced)
+   ======================================== */
+.navbar-brand {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--text-primary) !important;
+}
+
+.navbar-nav .nav-link {
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--text-secondary) !important;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--primary-green) !important;
+}
+
+.navbar-nav .nav-link.active {
+  color: var(--primary-green) !important;
+}
+
+.btn-outline-light {
+  font-weight: 600;
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+}
+
+.btn-outline-light:hover {
+  background-color: var(--primary-green);
+  border-color: var(--primary-green);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   FITNESS APP COMPONENTS
+   ======================================== */
+
+/* Primary CTA Button */
+.btn-fitness-primary {
+  background-color: var(--primary-green);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 25px;
+  padding: 12px 32px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-fitness-primary:hover {
+  background-color: var(--primary-green-hover);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+/* Dark Cards */
+.card-dark {
+  background-color: var(--bg-dark-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.card-glass {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(10px);
+  color: var(--text-primary);
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+              var(--bg-dark);
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* Form Controls */
+.form-control-dark {
+  background-color: var(--bg-dark-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.form-control-dark:focus {
+  background-color: var(--bg-dark-secondary);
+  border-color: var(--primary-green);
+  color: var(--text-primary);
+  box-shadow: 0 0 0 0.2rem rgba(78, 205, 196, 0.25);
+}
+
+.form-control-dark::placeholder {
+  color: var(--text-muted);
+}
+
+/* Navbar Dark Theme */
+.navbar-dark {
+  background-color: var(--bg-dark-secondary) !important;
+}
+
+.navbar-dark .navbar-toggler {
+  border-color: var(--border-subtle);
+}
+
+.navbar-dark .navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* Progress Bars */
+.progress {
+  background-color: var(--bg-dark-secondary);
+}
+
+.progress-bar-fitness {
+  background-color: var(--primary-green);
+}
+
+/* Badges */
+.badge-fitness {
+  background-color: var(--primary-green);
+  color: var(--text-primary);
+}
+
+/* Links */
+a {
+  color: var(--primary-green);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-green-hover);
+  text-decoration: underline;
+}
+
+/* Bootstrap Component Overrides */
+.btn-primary {
+  background-color: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-green-hover);
+  border-color: var(--primary-green-hover);
+}
+
+.text-primary {
+  color: var(--primary-green) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary-green) !important;
+}
+
+.border-primary {
+  border-color: var(--primary-green) !important;
+}
+
+/* Utility Classes */
+.text-fitness-primary {
+  color: var(--primary-green);
+}
+
+.text-fitness-secondary {
+  color: var(--text-secondary);
+}
+
+.text-fitness-muted {
+  color: var(--text-muted);
+}
+
+.bg-fitness-dark {
+  background-color: var(--bg-dark);
+}
+
+.bg-fitness-dark-secondary {
+  background-color: var(--bg-dark-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.25rem;
+  }
+}

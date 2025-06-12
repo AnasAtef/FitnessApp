@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-uppercase" routerLink="/">FitTrack</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <!-- Show these links when user is NOT logged in -->
+        <ng-container *ngIf="!accountService.$currentUser().userName">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/signin" routerLinkActive="active">Sign In</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-light ms-3" routerLink="/">Sign Up</a>
+          </li>
+        </ng-container>
+
+        <!-- Show these links when user IS logged in -->
+        <ng-container *ngIf="accountService.$currentUser().userName">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/userFitnessPlans" routerLinkActive="active">Fitness Plans</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/userDetailsAdd" routerLinkActive="active">Add Details</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+              (click)="toggleDropdown($event)" [attr.aria-expanded]="isDropdownOpen">
+              <i class="fas fa-user me-2"></i>
+              {{ accountService.$currentUser().userName }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" [class.show]="isDropdownOpen">
+              <li><a class="dropdown-item" routerLink="/userDetailsAdd" (click)="closeDropdown()">
+                <i class="fas fa-user-edit me-2"></i>Profile</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#" (click)="logout(); $event.preventDefault()">
+                <i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</nav>

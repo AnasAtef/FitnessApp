@@ -1,0 +1,137 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card card-dark">
+        <div class="card-header bg-fitness-dark-secondary">
+          <h3 class="text-center text-fitness-primary">Sign Up</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="signupForm" (ngSubmit)="submit()">
+
+            <!-- First Name -->
+            <div class="mb-3">
+              <label for="FirstName" class="form-label text-fitness-secondary">First Name</label>
+              <input type="text" class="form-control form-control-dark" id="FirstName" name="FirstName" formControlName="firstName" required>
+              @if (
+              !signupForm.get('firstName')?.valid &&
+              signupForm.get('firstName')?.touched
+              ) {
+              @if(signupForm.get('firstName')?.errors?.['required']){<span class="text-danger">First Name is required</span>}
+              }
+            </div>
+
+            <!-- Last Name -->
+            <div class="mb-3">
+              <label for="LastName" class="form-label text-fitness-secondary">Last Name</label>
+              <input type="text" class="form-control form-control-dark" id="LastName" name="LastName" formControlName="lastName" required>
+              @if (
+              !signupForm.get('lastName')?.valid &&
+              signupForm.get('lastName')?.touched
+              ) {
+              @if(signupForm.get('lastName')?.errors?.['required']){<span class="text-danger">Last Name is required</span>}
+              }
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="Email" class="form-label text-fitness-secondary">Email</label>
+              <input type="email" class="form-control form-control-dark" id="Email" name="Email" formControlName="email" required>
+              @if (
+              !signupForm.get('email')?.valid &&
+              signupForm.get('email')?.touched
+              ) {
+              @if(signupForm.get('email')?.errors?.['required']){<span class="text-danger">Email is required</span>}
+              @if(signupForm.get('email')?.errors?.['email']){<span class="text-danger">Invalid Email</span>}
+              }
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="Password" class="form-label text-fitness-secondary">Password</label>
+              <input type="password" class="form-control form-control-dark" id="Password" name="Password" formControlName="password" required>
+              @if (
+              !signupForm.get('password')?.valid &&
+              signupForm.get('password')?.touched
+              ) {
+              @if(signupForm.get('password')?.errors?.['required']){<span class="text-danger">Password is required</span>}
+              @if(signupForm.get('password')?.errors?.['minlength']){<span class="text-danger">Password must be at least 6 characters</span>}
+              @if(signupForm.get('password')?.errors?.['maxlength']){<span class="text-danger">Password cannot exceed 15 characters</span>}
+              }
+            </div>
+
+            <!-- Gender -->
+            <div class="mb-3">
+              <label for="Gender" class="form-label text-fitness-secondary">Gender</label>
+              <select class="form-control form-control-dark" id="genderId" name="genderId" formControlName="genderId" required>
+                <option value="">Select Gender</option>
+                <option value="DF230142-A19B-4A42-AE6E-3A06688E8FD7">Male</option>
+                <option value="C7692553-10A5-45F6-9438-5CB30A0A2FA1">Female</option>
+              </select>
+              @if (
+              !signupForm.get('gender')?.valid &&
+              signupForm.get('gender')?.touched
+              ) {
+              @if(signupForm.get('gender')?.errors?.['required']){<span class="text-danger">Gender is required</span>}
+              }
+            </div>
+
+            <!-- Weight -->
+            <div class="mb-3">
+              <label for="Weight" class="form-label text-fitness-secondary">Weight (kg)</label>
+              <input type="number" class="form-control form-control-dark" id="Weight" name="Weight" formControlName="weight" required min="1" max="1000">
+              @if (
+              !signupForm.get('weight')?.valid &&
+              signupForm.get('weight')?.touched
+              ) {
+              @if(signupForm.get('weight')?.errors?.['required']){<span class="text-danger">Weight is required</span>}
+              @if(signupForm.get('weight')?.errors?.['min']){<span class="text-danger">Weight must be greater than 0</span>}
+              @if(signupForm.get('weight')?.errors?.['max']){<span class="text-danger">Weight cannot exceed 1000 lbs</span>}
+              }
+            </div>
+
+            <!-- Age -->
+            <div class="mb-3">
+              <label for="Age" class="form-label text-fitness-secondary">Age</label>
+              <input type="number" class="form-control form-control-dark" id="Age" name="Age" formControlName="age" required min="13" max="120">
+              @if (
+              !signupForm.get('age')?.valid &&
+              signupForm.get('age')?.touched
+              ) {
+              @if(signupForm.get('age')?.errors?.['required']){<span class="text-danger">Age is required</span>}
+              @if(signupForm.get('age')?.errors?.['min']){<span class="text-danger">Age must be at least 13</span>}
+              @if(signupForm.get('age')?.errors?.['max']){<span class="text-danger">Age cannot exceed 120</span>}
+              }
+            </div>
+
+            <!-- Height -->
+            <div class="mb-3">
+              <label for="Height" class="form-label text-fitness-secondary">Height (cm)</label>
+              <input type="number" class="form-control form-control-dark" id="Height" name="Height" formControlName="height" required min="100" max="200">
+              @if (
+              !signupForm.get('height')?.valid &&
+              signupForm.get('height')?.touched
+              ) {
+              @if(signupForm.get('height')?.errors?.['required']){<span class="text-danger">Height is required</span>}
+              @if(signupForm.get('height')?.errors?.['min']){<span class="text-danger">Height must be at least 100 cm</span>}
+              @if(signupForm.get('height')?.errors?.['max']){<span class="text-danger">Height cannot exceed 200 cm</span>}
+              }
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-fitness-primary" [disabled]="!signupForm.valid">Sign Up</button>
+            </div>
+
+            <!-- Error Display -->
+            @if (accountService.$error()) {
+              <div class="alert alert-danger mt-3 bg-danger text-white border-0">
+                {{ accountService.$error() }}
+              </div>
+            }
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

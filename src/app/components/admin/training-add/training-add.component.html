@@ -1,0 +1,93 @@
+<!-- training-add.component.html -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card card-dark">
+        <div class="card-header bg-fitness-dark-secondary">
+          <h3 class="text-center text-fitness-primary">Add Training</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="trainingForm" (ngSubmit)="submit()">
+
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label text-fitness-secondary">Training Name</label>
+              <input type="text" class="form-control form-control-dark" id="name" name="name" formControlName="name" required>
+              @if (
+              !trainingForm.get('name')?.valid &&
+              trainingForm.get('name')?.touched
+              ) {
+              @if(trainingForm.get('name')?.errors?.['required']){<span class="text-danger">Name is required</span>}
+              }
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label for="description" class="form-label text-fitness-secondary">Description</label>
+              <textarea class="form-control form-control-dark" id="description" name="description" formControlName="description" rows="3"></textarea>
+            </div>
+
+            <!-- Number of Days -->
+            <div class="mb-3">
+              <label for="numberOfDays" class="form-label text-fitness-secondary">Number of Days</label>
+              <input type="number" class="form-control form-control-dark" id="numberOfDays" name="numberOfDays" formControlName="numberOfDays" min="1" required>
+              @if (
+              !trainingForm.get('numberOfDays')?.valid &&
+              trainingForm.get('numberOfDays')?.touched
+              ) {
+              @if(trainingForm.get('numberOfDays')?.errors?.['required']){<span class="text-danger">Number of days is required</span>}
+              @if(trainingForm.get('numberOfDays')?.errors?.['min']){<span class="text-danger">Number of days must be at least 1</span>}
+              }
+            </div>
+
+            <!-- Fitness Category -->
+            <div class="mb-3">
+              <label for="fitnessCategoryId" class="form-label text-fitness-secondary">Fitness Category</label>
+              @if (trainingService.$fitnessCategories().length === 0) {
+                <div class="d-flex align-items-center">
+                  <div class="spinner-border spinner-border-sm text-fitness-primary me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <span class="text-fitness-secondary">Loading categories...</span>
+                </div>
+              } @else {
+                <select class="form-select form-control-dark" id="fitnessCategoryId" name="fitnessCategoryId" formControlName="fitnessCategoryId" required>
+                  <option value="0">Select a fitness category</option>
+                  @for (category of trainingService.$fitnessCategories(); track category.id) {
+                    <option [value]="category.id">{{ category.name }}</option>
+                  }
+                </select>
+              }
+              @if (
+              !trainingForm.get('fitnessCategoryId')?.valid &&
+              trainingForm.get('fitnessCategoryId')?.touched
+              ) {
+              @if(trainingForm.get('fitnessCategoryId')?.errors?.['required']){<span class="text-danger">Fitness category is required</span>}
+              @if(trainingForm.get('fitnessCategoryId')?.errors?.['min']){<span class="text-danger">Please select a valid fitness category</span>}
+              }
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-fitness-primary" [disabled]="!trainingForm.valid || trainingService.$fitnessCategories().length === 0">Submit</button>
+            </div>
+
+            <!-- Error Display -->
+            @if (trainingService.$error()) {
+              <div class="alert alert-danger mt-3 bg-danger text-white border-0">
+                {{ trainingService.$error() }}
+              </div>
+            }
+
+            @if (accountService.$error()) {
+              <div class="alert alert-danger mt-3 bg-danger text-white border-0">
+                {{ accountService.$error() }}
+              </div>
+            }
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

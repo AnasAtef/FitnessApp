@@ -1,0 +1,151 @@
+<!-- user-fitness-plans.component.html -->
+<div class="container mt-4">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card-glass p-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h2 class="hero-title mb-2">My Fitness Plans</h2>
+            <p class="hero-subtitle mb-0">Manage and track your fitness journey</p>
+          </div>
+          <div>
+            <button type="button" class="btn btn-fitness-primary" (click)="createNewPlan()">
+              <i class="fas fa-plus me-2"></i>
+              Add New Plan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading) {
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center py-5">
+        <div class="spinner-border text-fitness-primary mb-3" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="text-fitness-secondary">Loading your fitness plans...</p>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Error State -->
+  @if (error && !isLoading) {
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-danger d-flex align-items-center">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        {{ error }}
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Empty State -->
+  @if (!hasPlans && !isLoading && !error) {
+  <div class="row">
+    <div class="col-12">
+      <div class="card-dark text-center py-5">
+        <div class="card-body">
+          <i class="fas fa-dumbbell fa-3x text-fitness-primary mb-3"></i>
+          <h4 class="text-fitness-primary mb-3">No Fitness Plans Yet</h4>
+          <p class="text-fitness-secondary mb-4">
+            Start your fitness journey by creating your first workout plan
+          </p>
+          <button type="button" class="btn btn-fitness-primary" (click)="createNewPlan()">
+            <i class="fas fa-plus me-2"></i>
+            Create Your First Plan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Fitness Plans Grid -->
+  @if (hasPlans && !isLoading) {
+  <div class="row">
+    <div class="col-12 mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="text-fitness-secondary mb-0">
+          <i class="fas fa-list me-2"></i>
+          Your Plans ({{ fitnessPlans.length }})
+        </h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    @for (plan of fitnessPlans; track plan.id) {
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card card-dark h-100 fitness-plan-card">
+        <div class="card-body d-flex flex-column">
+          <!-- Plan Header -->
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h5 class="card-title text-fitness-primary mb-0">
+              {{ plan.trainingName }}
+            </h5>
+            <div class="dropdown">
+              <button class="btn btn-outline-light btn-sm" type="button" data-bs-toggle="dropdown">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li>
+                  <a class="dropdown-item text-danger" (click)="deletePlan(plan)">
+                    <i class="fas fa-trash me-2"></i>Delete Plan
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Plan Details -->
+          <div class="flex-grow-1">
+            <!-- Category Badge -->
+            <div class="mb-3">
+              <span class="badge" [class]="getCategoryBadgeClass(plan.fitnessCategoryName)">
+                <i class="fas fa-tag me-1"></i>
+                {{ plan.fitnessCategoryName }}
+              </span>
+            </div>
+
+            <!-- Duration Info -->
+            <div class="mb-3">
+              <div class="d-flex align-items-center text-fitness-secondary">
+                <i class="fas fa-calendar-alt me-2"></i>
+                <span>Duration: {{ getDurationText(plan.numberOfDays) }}</span>
+              </div>
+            </div>
+
+            <!-- Progress Bar (placeholder) -->
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <small class="text-fitness-muted">Progress</small>
+                <small class="text-fitness-muted">0%</small>
+              </div>
+              <div class="progress" style="height: 6px;">
+                <div class="progress-bar progress-bar-fitness" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="d-flex gap-2 mt-auto">
+            <a [routerLink]="['/sessionTrainingList', plan.trainingId]"
+              class="btn btn-fitness-primary flex-fill text-decoration-none">
+              <i class="fas fa-play me-2"></i>
+              Start Workout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>

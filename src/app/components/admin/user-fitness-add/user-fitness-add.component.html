@@ -1,0 +1,136 @@
+<!-- user-fitness-add.component.html -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card card-dark">
+        <div class="card-header bg-fitness-dark-secondary">
+          <h3 class="text-center text-fitness-primary">Add Fitness Plan</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="userFitnessPlanForm" (ngSubmit)="submit()">
+
+            <!-- Fitness Category -->
+            <div class="mb-3">
+              <label for="fitnessCategoryId" class="form-label text-fitness-secondary">Fitness Category</label>
+              @if (trainingService.$fitnessCategories().length === 0) {
+                <div class="d-flex align-items-center">
+                  <div class="spinner-border spinner-border-sm text-fitness-primary me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <span class="text-fitness-secondary">Loading categories...</span>
+                </div>
+              } @else {
+                <select class="form-select form-control-dark" id="fitnessCategoryId" name="fitnessCategoryId" formControlName="fitnessCategoryId" required>
+                  <option value="0">Select a fitness category</option>
+                  @for (category of trainingService.$fitnessCategories(); track category.id) {
+                    <option [value]="category.id">{{ category.name }}</option>
+                  }
+                </select>
+              }
+              @if (
+              !userFitnessPlanForm.get('fitnessCategoryId')?.valid &&
+              userFitnessPlanForm.get('fitnessCategoryId')?.touched
+              ) {
+              @if(userFitnessPlanForm.get('fitnessCategoryId')?.errors?.['required']){<span class="text-danger">Fitness category is required</span>}
+              @if(userFitnessPlanForm.get('fitnessCategoryId')?.errors?.['min']){<span class="text-danger">Please select a valid fitness category</span>}
+              }
+            </div>
+
+            <!-- Training Program -->
+            <div class="mb-3">
+              <label for="trainingId" class="form-label text-fitness-secondary">Training Program</label>
+              @if (selectedCategoryId === 0) {
+                <div class="form-control form-control-dark disabled">
+                  <span class="text-muted">Please select a fitness category first</span>
+                </div>
+              } @else if (getTrainingsForSelectedCategory().length === 0) {
+                <div class="d-flex align-items-center">
+                  <div class="spinner-border spinner-border-sm text-fitness-primary me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <span class="text-fitness-secondary">Loading training programs...</span>
+                </div>
+              } @else {
+                <select class="form-select form-control-dark" id="trainingId" name="trainingId" formControlName="trainingId" required>
+                  <option value="">Select a training program</option>
+                  @for (training of getTrainingsForSelectedCategory(); track training.id) {
+                    <option [value]="training.id">
+                      {{ training.name }} ({{ training.numberOfDays }} days)
+                      @if (training.description) {
+                        - {{ training.description }}
+                      }
+                    </option>
+                  }
+                </select>
+              }
+              @if (
+              !userFitnessPlanForm.get('trainingId')?.valid &&
+              userFitnessPlanForm.get('trainingId')?.touched
+              ) {
+              @if(userFitnessPlanForm.get('trainingId')?.errors?.['required']){<span class="text-danger">Training program is required</span>}
+              }
+            </div>
+
+            <!-- Training Details Preview -->
+            @if (userFitnessPlanForm.get('trainingId')?.value) {
+              @for (training of getTrainingsForSelectedCategory(); track training.id) {
+                @if (training.id === userFitnessPlanForm.get('trainingId')?.value) {
+                  <div class="mb-3">
+                    <div class="card card-glass">
+                      <div class="card-body">
+                        <h5 class="text-fitness-primary mb-2">{{ training.name }}</h5>
+                        <p class="text-fitness-secondary mb-1">
+                          <strong>Duration:</strong> {{ training.numberOfDays }} days
+                        </p>
+                        @if (training.description) {
+                          <p class="text-fitness-muted mb-0">
+                            <strong>Description:</strong> {{ training.description }}
+                          </p>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                }
+              }
+            }
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+              <button
+                type="submit"
+                class="btn btn-fitness-primary"
+                [disabled]="!userFitnessPlanForm.valid || userFitnessPlanService.$isLoading() || trainingService.$fitnessCategories().length === 0">
+                @if (userFitnessPlanService.$isLoading()) {
+                  <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                  Creating...
+                } @else {
+                  Select Fitness Plan
+                }
+              </button>
+            </div>
+
+            <!-- Error Display -->
+            @if (userFitnessPlanService.$error()) {
+              <div class="alert alert-danger mt-3 bg-danger text-white border-0">
+                {{ userFitnessPlanService.$error() }}
+              </div>
+            }
+
+            @if (trainingService.$error()) {
+              <div class="alert alert-danger mt-3 bg-danger text-white border-0">
+                {{ trainingService.$error() }}
+              </div>
+            }
+
+            @if (accountService.$error()) {
+              <div class="alert alert-danger mt-3 bg-danger text-white border-0">
+                {{ accountService.$error() }}
+              </div>
+            }
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

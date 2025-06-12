@@ -1,0 +1,6 @@
+@if(accountService.$currentUser().role?.toLocaleLowerCase()=="user"){
+<app-user-navbar></app-user-navbar>
+}@else if(accountService.$currentUser().role?.toLocaleLowerCase()=="administrator") {
+<app-admin-navbar></app-admin-navbar>
+}
+<router-outlet />

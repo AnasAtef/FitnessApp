@@ -1,0 +1,56 @@
+<div class="exercise-card" [class.active]="isActive()" (click)="selectExercise()">
+  <div class="exercise-content">
+
+    <div class="exercise-info">
+      <img src="assets/images/chest_fly_machine.png" alt="name" class="card-img-top"
+        style="height: auto; object-fit: cover;" />
+      <div class="exercise-title">Chest Fly Machine</div>
+      <div class="exercise-description">{{ description }}</div>
+
+      <!-- Timer Display -->
+      @if (isActive()) {
+      <div class="timer-section">
+        <div class="timer-display">
+          <span class="timer-text">{{ formattedTime() }}</span>
+        </div>
+        <div class="timer-progress">
+          <div class="progress">
+            <div class="progress-bar progress-bar-fitness" [style.width.%]="progressPercentage()">
+            </div>
+          </div>
+        </div>
+        <div class="timer-controls">
+          <button class="btn btn-fitness-primary btn-sm" (click)="toggleTimer($event)" [disabled]="isCompleted()">
+            @if (isRunning()) {
+            <i class="fas fa-pause"></i>
+            Pause
+            } @else {
+            <i class="fas fa-play"></i>
+            Start
+            }
+          </button>
+          <button class="btn btn-outline-light btn-sm ms-2" (click)="resetTimer($event)">
+            <i class="fas fa-redo"></i>
+            Reset
+          </button>
+        </div>
+      </div>
+      }
+
+    </div>
+
+    @if (!isActive()) {
+    <div class="exercise-arrow">
+      <i class="fas fa-chevron-right"></i>
+    </div>
+    } @else {
+    <div class="exercise-status">
+      @if (isCompleted()) {
+      <i class="fas fa-check-circle text-fitness-primary"></i>
+      } @else {
+      <i class="fas fa-clock text-fitness-primary"></i>
+      }
+    </div>
+    }
+  </div>
+</div>

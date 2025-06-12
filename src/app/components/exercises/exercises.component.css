@@ -1,0 +1,224 @@
+   * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0A0A0A;
+      color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding-bottom: 100px;
+    }
+
+    /* Header */
+    .header {
+      padding: 60px 20px 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 20px;
+      top: 50px;
+      background: none;
+      border: none;
+      color: #4ECDC4;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .start-session-btn {
+      background: linear-gradient(135deg, #4ECDC4, #45B7B8);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 20px rgba(78, 205, 196, 0.3);
+    }
+
+    /* Exercise List Container */
+    .exercise-container {
+      padding: 0 20px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Exercise Card */
+    .exercise-card {
+      background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+      border: 1px solid #333;
+      border-radius: 20px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .exercise-card:hover {
+      transform: translateY(-2px);
+      border-color: #4ECDC4;
+      box-shadow: 0 8px 25px rgba(78, 205, 196, 0.2);
+    }
+
+    .exercise-content {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    /* Exercise Image */
+    .exercise-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #333, #555);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exercise-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .exercise-image i {
+      font-size: 28px;
+      color: #4ECDC4;
+    }
+
+    /* Exercise Info */
+    .exercise-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .exercise-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 5px;
+      line-height: 1.2;
+    }
+
+    .exercise-description {
+      font-size: 14px;
+      color: #B0B0B0;
+      line-height: 1.4;
+    }
+
+    /* Arrow */
+    .exercise-arrow {
+      color: #4ECDC4;
+      font-size: 18px;
+      margin-left: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1A1A1A;
+      border-top: 1px solid #333;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      color: #666;
+      text-decoration: none;
+      font-size: 12px;
+      padding: 5px;
+    }
+
+    .nav-item.active {
+      color: #4ECDC4;
+    }
+
+    .nav-item i {
+      font-size: 20px;
+    }
+
+    /* Special Exercise Images with Gradients */
+    .chest-fly {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+    }
+
+    .dumbbell-press {
+      background: linear-gradient(135deg, #4ECDC4, #6DD5DB);
+    }
+
+    .shoulder-press {
+      background: linear-gradient(135deg, #45B7B8, #4ECDC4);
+    }
+
+    .front-raises {
+      background: linear-gradient(135deg, #FFD93D, #FFED4E);
+    }
+
+    .lateral-raises {
+      background: linear-gradient(135deg, #6BCF7F, #7ED57E);
+    }
+
+    .tricep-kickback {
+      background: linear-gradient(135deg, #FF9F43, #FFAB5C);
+    }
+
+    .deadlift {
+      background: linear-gradient(135deg, #B83DFF, #C45AFF);
+    }
+
+    .squats {
+      background: linear-gradient(135deg, #3D5AFE, #5A7CFF);
+    }
+
+    .bench-press {
+      background: linear-gradient(135deg, #FF3D71, #FF5A8A);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .exercise-container {
+        padding: 0 15px;
+      }
+
+      .exercise-content {
+        padding: 15px;
+        gap: 15px;
+      }
+
+      .exercise-image {
+        width: 70px;
+        height: 70px;
+      }
+
+      .exercise-title {
+        font-size: 16px;
+      }
+
+      .exercise-description {
+        font-size: 13px;
+      }
+    }

@@ -1,0 +1,169 @@
+ <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card card-dark">
+            <div class="card-header bg-fitness-dark-secondary">
+              <h3 class="text-center text-fitness-primary">Add Workout Session</h3>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="sessionForm" (ngSubmit)="submit()">
+
+                <!-- Name -->
+                <div class="mb-3">
+                  <label for="name" class="form-label text-fitness-secondary">Session Name</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-dark"
+                    id="name"
+                    name="name"
+                    formControlName="name"
+                    required
+                    placeholder="e.g., Upper Body Strength"
+                  >
+                  @if (
+                    !sessionForm.get('name')?.valid &&
+                    sessionForm.get('name')?.touched
+                  ) {
+                    @if(sessionForm.get('name')?.errors?.['required']){
+                      <span class="text-danger">Name is required</span>
+                    }
+                    @if(sessionForm.get('name')?.errors?.['minlength']){
+                      <span class="text-danger">Name must be at least 2 characters</span>
+                    }
+                  }
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                  <label for="description" class="form-label text-fitness-secondary">Description</label>
+                  <textarea
+                    class="form-control form-control-dark"
+                    id="description"
+                    name="description"
+                    formControlName="description"
+                    rows="3"
+                    placeholder="Describe the workout session..."
+                  ></textarea>
+                  @if (
+                    !sessionForm.get('description')?.valid &&
+                    sessionForm.get('description')?.touched
+                  ) {
+                    @if(sessionForm.get('description')?.errors?.['required']){
+                      <span class="text-danger">Description is required</span>
+                    }
+                    @if(sessionForm.get('description')?.errors?.['minlength']){
+                      <span class="text-danger">Description must be at least 10 characters</span>
+                    }
+                  }
+                </div>
+
+                <!-- Minutes -->
+                <div class="mb-3">
+                  <label for="minutes" class="form-label text-fitness-secondary">Duration (minutes)</label>
+                  <input
+                    type="number"
+                    class="form-control form-control-dark"
+                    id="minutes"
+                    name="minutes"
+                    formControlName="minutes"
+                    required
+                    placeholder="30"
+                    min="1"
+                    max="300"
+                  >
+                  @if (
+                    !sessionForm.get('minutes')?.valid &&
+                    sessionForm.get('minutes')?.touched
+                  ) {
+                    @if(sessionForm.get('minutes')?.errors?.['required']){
+                      <span class="text-danger">Duration is required</span>
+                    }
+                    @if(sessionForm.get('minutes')?.errors?.['min']){
+                      <span class="text-danger">Duration must be at least 1 minute</span>
+                    }
+                    @if(sessionForm.get('minutes')?.errors?.['max']){
+                      <span class="text-danger">Duration cannot exceed 300 minutes</span>
+                    }
+                  }
+                </div>
+
+                <!-- Number of Sets -->
+                <div class="mb-3">
+                  <label for="numberOfSets" class="form-label text-fitness-secondary">Number of Sets</label>
+                  <input
+                    type="number"
+                    class="form-control form-control-dark"
+                    id="numberOfSets"
+                    name="numberOfSets"
+                    formControlName="numberOfSets"
+                    required
+                    placeholder="3"
+                    min="1"
+                    max="20"
+                  >
+                  @if (
+                    !sessionForm.get('numberOfSets')?.valid &&
+                    sessionForm.get('numberOfSets')?.touched
+                  ) {
+                    @if(sessionForm.get('numberOfSets')?.errors?.['required']){
+                      <span class="text-danger">Number of sets is required</span>
+                    }
+                    @if(sessionForm.get('numberOfSets')?.errors?.['min']){
+                      <span class="text-danger">Must have at least 1 set</span>
+                    }
+                    @if(sessionForm.get('numberOfSets')?.errors?.['max']){
+                      <span class="text-danger">Cannot exceed 20 sets</span>
+                    }
+                  }
+                </div>
+
+                <!-- Image URL -->
+                <div class="mb-3">
+                  <label for="imageUrl" class="form-label text-fitness-secondary">Image URL (optional)</label>
+                  <input
+                    type="url"
+                    class="form-control form-control-dark"
+                    id="imageUrl"
+                    name="imageUrl"
+                    formControlName="imageUrl"
+                    placeholder="https://example.com/image.jpg"
+                  >
+                  @if (
+                    !sessionForm.get('imageUrl')?.valid &&
+                    sessionForm.get('imageUrl')?.touched
+                  ) {
+                    @if(sessionForm.get('imageUrl')?.errors?.['pattern']){
+                      <span class="text-danger">Please enter a valid image URL</span>
+                    }
+                  }
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid">
+                  <button
+                    type="submit"
+                    class="btn btn-fitness-primary"
+                    [disabled]="!sessionForm.valid || sessionService.$loading()"
+                  >
+                    @if (sessionService.$loading()) {
+                      <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                      Creating...
+                    } @else {
+                      Submit
+                    }
+                  </button>
+                </div>
+
+                <!-- Error Display -->
+                @if (sessionService.$error()) {
+                  <div class="alert alert-danger mt-3 bg-danger text-white border-0">
+                    {{ sessionService.$error() }}
+                  </div>
+                }
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

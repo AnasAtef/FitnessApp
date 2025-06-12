@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-12">
+    @if (this.sessionTrainingService.$sessionsTraining().length !== 0) {
+
+    <!-- Sessions Count -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="text-fitness-secondary mb-0">
+        <i class="fas fa-list me-2"></i>
+        {{ this.sessionTrainingService.$sessionsTraining().length }}
+        {{ this.sessionTrainingService.$sessionsTraining().length === 1 ? 'Session' : 'Sessions' }} Found
+      </h5>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-outline-secondary btn-sm active">
+          <i class="fas fa-th"></i>
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm">
+          <i class="fas fa-list"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Sessions Cards -->
+    <div class="row g-4">
+      @for (session of this.sessionTrainingService.$sessionsTraining(); track session.id) {
+      <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <div class="card card-dark h-100 shadow-sm">
+          <!-- Session Image -->
+          @if (session.imageUrl) {
+          <div class="position-relative">
+            <img [src]="session.imageUrl" [alt]="session.name" class="card-img-top"
+              style="height: 200px; object-fit: cover;" (error)="onImageError($event)" />
+            <div class="position-absolute top-0 end-0 m-2">
+              <span class="badge bg-fitness-primary">
+                {{ session.minutes }}min
+              </span>
+            </div>
+          </div>
+          } @else {
+          <div class="card-img-top d-flex align-items-center justify-content-center bg-fitness-dark-secondary"
+            style="height: 200px;">
+            <i class="fas fa-dumbbell fa-3x text-fitness-primary opacity-50"></i>
+          </div>
+          }
+
+          <!-- Session Content -->
+          <div class="card-body d-flex flex-column">
+            <div class="mb-3">
+              <h5 class="card-title text-fitness-primary mb-2">{{ session.name }}</h5>
+              <p class="card-text text-fitness-secondary small flex-grow-1 mb-0">
+                {{ session.description || 'No description available' }}
+              </p>
+            </div>
+
+            <!-- Session Stats -->
+            <div class="mt-auto">
+              <div class="row g-2 text-center mb-3">
+                <div class="col-4">
+                  <div class="p-2 bg-fitness-dark-secondary rounded">
+                    <i class="fas fa-clock text-fitness-primary d-block mb-1"></i>
+                    <small class="text-fitness-muted">Duration</small>
+                    <div class="text-fitness-primary fw-bold small">{{ session.minutes }}min</div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="p-2 bg-fitness-dark-secondary rounded">
+                    <i class="fas fa-repeat text-fitness-primary d-block mb-1"></i>
+                    <small class="text-fitness-muted">Sets</small>
+                    <div class="text-fitness-primary fw-bold small">{{ session.numberOfSets }}</div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="p-2 bg-fitness-dark-secondary rounded">
+                    <i class="fas fa-fire text-fitness-primary d-block mb-1"></i>
+                    <small class="text-fitness-muted">Level</small>
+                    <div class="text-fitness-primary fw-bold small">Pro</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card card-dark">
+                <div
+                  class="card-header bg-fitness-dark-secondary d-flex justify-content-between align-items-center py-3">
+                  <a routerLink="/exercises" class="btn btn-fitness-primary">
+                    <i class="fas fa-plus me-2"></i>Start Sessions
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+</div>

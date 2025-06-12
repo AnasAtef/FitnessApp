@@ -1,0 +1,52 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card card-dark">
+        <div class="card-header bg-fitness-dark-secondary">
+          <h3 class="text-center text-fitness-primary">Add Fitness Category</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="fitnessCategoryForm" (ngSubmit)="submit()">
+
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label text-fitness-secondary">Category Name</label>
+              <input type="text" class="form-control form-control-dark" id="name" name="name" formControlName="name" required>
+              @if (
+              !fitnessCategoryForm.get('name')?.valid &&
+              fitnessCategoryForm.get('name')?.touched
+              ) {
+              @if(fitnessCategoryForm.get('name')?.errors?.['required']){<span class="text-danger">Name is required</span>}
+              }
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label for="description" class="form-label text-fitness-secondary">Description</label>
+              <textarea class="form-control form-control-dark" id="description" name="description" formControlName="description" rows="3"></textarea>
+              @if (
+              !fitnessCategoryForm.get('description')?.valid &&
+              fitnessCategoryForm.get('description')?.touched
+              ) {
+              @if(fitnessCategoryForm.get('description')?.errors?.['minlength']){<span class="text-danger">Description must be at least 6 characters</span>}
+              }
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-fitness-primary" [disabled]="!fitnessCategoryForm.valid">Submit</button>
+            </div>
+
+            <!-- Error Display -->
+            @if (accountService.$error()) {
+              <div class="alert alert-danger mt-3 bg-danger text-white border-0">
+                {{ accountService.$error() }}
+              </div>
+            }
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
